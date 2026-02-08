@@ -1,0 +1,22 @@
+# Core AI/ML
+google-generativeai>=0.3.0
+
+# Async Processing
+aiofiles>=23.2.1
+
+# Web Framework
+streamlit>=1.31.0
+
+# Data Processing
+pandas>=2.0.0
+
+# Document Processing
+PyPDF2>=3.0.0
+python-docx>=1.1.0
+Pillow>=10.0.0
+
+# Visualization
+plotly>=5.18.0
+
+# Utilities
+python-dotenv>=1.0.0

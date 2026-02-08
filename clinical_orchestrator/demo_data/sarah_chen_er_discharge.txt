@@ -1,0 +1,57 @@
+EMERGENCY DEPARTMENT DISCHARGE SUMMARY
+
+Patient Name: Sarah Chen
+Date of Birth: 03/15/1974
+MRN: 12345678
+Visit Date: 2026-01-22
+Discharge Date: 2026-01-22
+
+CHIEF COMPLAINT:
+Chest pain
+
+HISTORY OF PRESENT ILLNESS:
+52-year-old female with history of Type 2 Diabetes Mellitus presented to ED with complaint of chest pain. Patient describes sharp, stabbing left-sided chest pain that started approximately 4 hours prior to arrival. Pain is reproducible with palpation and worse with deep inspiration. Denies shortness of breath, diaphoresis, nausea, or radiation of pain. No previous episodes.
+
+PAST MEDICAL HISTORY:
+- Type 2 Diabetes Mellitus (diagnosed 2020)
+- Hypertension
+- Hyperlipidemia
+
+CURRENT MEDICATIONS:
+- Metformin 1000mg BID
+- Lisinopril 20mg daily
+- Aspirin 81mg daily
+
+PHYSICAL EXAMINATION:
+Vital Signs: BP 138/85, HR 78, RR 16, Temp 98.4°F, O2 Sat 98% on RA
+General: Alert, oriented, in no acute distress
+Cardiovascular: Regular rate and rhythm, no murmurs
+Chest: Tenderness to palpation over left 4th and 5th ribs, costochondral junction
+Lungs: Clear to auscultation bilaterally
+
+DIAGNOSTIC STUDIES:
+- EKG: Normal sinus rhythm, no ST changes
+- Troponin I: <0.01 ng/mL (negative)
+- Chest X-ray: No acute cardiopulmonary process
+
+EMERGENCY DEPARTMENT COURSE:
+Patient ruled out for acute coronary syndrome. Clinical presentation consistent with costochondritis. Patient given ibuprofen 600mg PO with good pain relief.
+
+DIAGNOSIS:
+1. Costochondritis
+2. Type 2 Diabetes Mellitus - stable
+3. Hypertension - controlled
+
+DISCHARGE MEDICATIONS:
+- Continue home medications (Metformin, Lisinopril, Aspirin)
+- NEW: Ibuprofen 600mg PO TID PRN pain x 7 days
+
+DISCHARGE INSTRUCTIONS:
+- Follow up with primary care physician within 1 week
+- Return to ED if chest pain worsens, becomes radiating, associated with shortness of breath or diaphoresis
+- Rest and apply heat/ice to affected area
+
+FOLLOW-UP:
+Primary care physician appointment recommended within 1 week
+
+Attending Physician: Dr. Jennifer Martinez, Emergency Medicine

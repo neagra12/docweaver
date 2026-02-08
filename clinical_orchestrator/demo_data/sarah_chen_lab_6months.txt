@@ -1,0 +1,59 @@
+LABORATORY REPORT
+
+Patient Name: Sarah Chen
+Date of Birth: 03/15/1974
+MRN: 12345678
+Test Date: 2025-08-07
+
+Ordering Provider: Dr. Michael Rodriguez, Internal Medicine
+
+CHEMISTRY PANEL:
+
+Hemoglobin A1C
+  Result: 6.5%
+  Reference Range: <5.7% (normal), 5.7-6.4% (prediabetes), ≥6.5% (diabetes)
+  Flag: HIGH
+
+Glucose, Fasting
+  Result: 125 mg/dL
+  Reference Range: 70-100 mg/dL
+  Flag: HIGH
+
+Creatinine
+  Result: 1.0 mg/dL
+  Reference Range: 0.6-1.2 mg/dL
+  Flag: NORMAL
+
+eGFR
+  Result: 75 mL/min/1.73m²
+  Reference Range: >60 mL/min/1.73m²
+  Flag: NORMAL
+
+LIPID PANEL:
+
+Total Cholesterol
+  Result: 210 mg/dL
+  Reference Range: <200 mg/dL
+  Flag: HIGH
+
+LDL Cholesterol
+  Result: 118 mg/dL
+  Reference Range: <100 mg/dL (optimal)
+  Flag: BORDERLINE
+
+HDL Cholesterol
+  Result: 55 mg/dL
+  Reference Range: >40 mg/dL
+  Flag: NORMAL
+
+Triglycerides
+  Result: 150 mg/dL
+  Reference Range: <150 mg/dL
+  Flag: NORMAL
+
+Microalbumin, Urine
+  Result: <15 mg/g creatinine
+  Reference Range: <30 mg/g creatinine
+  Flag: NORMAL
+
+---END OF REPORT---

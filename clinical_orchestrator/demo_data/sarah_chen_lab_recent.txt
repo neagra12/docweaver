@@ -1,0 +1,64 @@
+LABORATORY REPORT
+
+Patient Name: Sarah Chen
+Date of Birth: 03/15/1974
+MRN: 12345678
+Test Date: 2026-02-05
+
+Ordering Provider: Dr. Michael Rodriguez, Internal Medicine
+
+CHEMISTRY PANEL:
+
+Hemoglobin A1C
+  Result: 6.8%
+  Reference Range: <5.7% (normal), 5.7-6.4% (prediabetes), ≥6.5% (diabetes)
+  Flag: HIGH
+  ** INCREASED from 6.5% (6 months ago) **
+
+Glucose, Fasting
+  Result: 138 mg/dL
+  Reference Range: 70-100 mg/dL
+  Flag: HIGH
+
+Creatinine
+  Result: 1.2 mg/dL
+  Reference Range: 0.6-1.2 mg/dL
+  Flag: HIGH NORMAL
+  ** INCREASED from 1.0 mg/dL (6 months ago) **
+
+eGFR
+  Result: 62 mL/min/1.73m²
+  Reference Range: >60 mL/min/1.73m²
+  Flag: LOW NORMAL
+  ** DECREASED from 75 mL/min/1.73m² (6 months ago) **
+
+LIPID PANEL:
+
+Total Cholesterol
+  Result: 235 mg/dL
+  Reference Range: <200 mg/dL
+  Flag: HIGH
+
+LDL Cholesterol
+  Result: 145 mg/dL
+  Reference Range: <100 mg/dL (optimal)
+  Flag: HIGH
+  ** INCREASED from 118 mg/dL (6 months ago) **
+
+HDL Cholesterol
+  Result: 52 mg/dL
+  Reference Range: >40 mg/dL
+  Flag: NORMAL
+
+Triglycerides
+  Result: 165 mg/dL
+  Reference Range: <150 mg/dL
+  Flag: HIGH
+
+Microalbumin, Urine
+  Result: 35 mg/g creatinine
+  Reference Range: <30 mg/g creatinine
+  Flag: HIGH
+  ** NEW ABNORMAL FINDING - MICROALBUMINURIA **
+
+---END OF REPORT---

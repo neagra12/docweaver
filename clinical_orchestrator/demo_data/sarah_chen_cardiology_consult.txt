@@ -1,0 +1,55 @@
+CARDIOLOGY CONSULTATION NOTE
+
+Patient Name: Sarah Chen
+Date of Birth: 03/15/1974
+MRN: 12345678
+Consultation Date: 2026-01-28
+
+Referring Provider: Dr. Michael Rodriguez, Internal Medicine
+
+REASON FOR CONSULTATION:
+Evaluation following ER visit for chest pain, rule out cardiac etiology
+
+HISTORY OF PRESENT ILLNESS:
+52-year-old female with Type 2 Diabetes, hypertension, and hyperlipidemia referred for cardiac evaluation following recent ER visit for chest pain. Patient presented to ER 1/22 with left-sided chest pain, ultimately diagnosed with costochondritis after ruling out ACS. Patient reports complete resolution of chest pain with ibuprofen. No current symptoms.
+
+PAST MEDICAL HISTORY:
+- Type 2 Diabetes Mellitus (6 years, A1C trend: 6.5% → 6.8%)
+- Hypertension (well-controlled on lisinopril)
+- Hyperlipidemia (LDL recently increased to 145)
+
+CURRENT MEDICATIONS:
+- Metformin 1000mg BID
+- Lisinopril 20mg daily (ACE inhibitor)
+- Aspirin 81mg daily
+- Ibuprofen 600mg TID PRN (started in ER)
+
+PHYSICAL EXAMINATION:
+Vital Signs: BP 132/82, HR 72, RR 14
+Cardiovascular: RRR, no murmurs, rubs, or gallops
+No peripheral edema
+Pulses intact bilaterally
+
+REVIEW OF SYSTEMS:
+No current chest pain, palpitations, dyspnea, orthopnea, or PND
+
+ASSESSMENT:
+1. Chest pain - consistent with costochondritis, NOT cardiac
+2. Low cardiac risk based on negative workup
+3. Diabetes with multiple cardiovascular risk factors requiring optimization
+
+RECOMMENDATIONS:
+1. Cardiac etiology effectively ruled out
+2. No stress test needed at this time
+3. If chest pain recurs, consider stress test
+4. Recommend statin therapy for LDL optimization given diabetes diagnosis
+5. Continue current cardiac medications
+6. CAUTION: Concurrent use of ibuprofen with ACE inhibitor (lisinopril) may affect kidney function - recommend limiting NSAID use
+
+PLAN:
+Patient reassured regarding cardiac status. Will defer further cardiac workup unless symptoms recur. Recommend follow-up with primary care for lipid management and diabetes optimization.
+
+Follow-up: PRN or if symptoms recur
+
+John Stevens, MD
+Cardiology

@@ -1,0 +1,45 @@
+OFFICE VISIT NOTE
+
+Patient Name: Sarah Chen
+Date of Birth: 03/15/1974
+MRN: 12345678
+Visit Date: 2025-11-05
+Provider: Dr. Michael Rodriguez, Internal Medicine
+
+CHIEF COMPLAINT:
+Diabetes follow-up
+
+SUBJECTIVE:
+52-year-old female here for routine Type 2 Diabetes follow-up. Patient reports good medication compliance. Checking blood sugar occasionally at home, typically 110-130 fasting. Denies polyuria, polydipsia, blurred vision. Diet adherence fair, trying to walk 3x/week. No hypoglycemic episodes.
+
+OBJECTIVE:
+Vital Signs: BP 128/78, HR 74, Weight 168 lbs, BMI 28.5
+General: Well-appearing, no distress
+CV: RRR, no murmurs
+Lungs: CTA bilaterally
+Extremities: No edema, pulses intact, monofilament test normal
+
+LABS REVIEWED (from 8/7/25):
+- A1C: 6.5%
+- Lipid panel: Total cholesterol 210, LDL 118, HDL 55
+- Creatinine: 1.0, eGFR 75
+- Microalbumin: negative
+
+ASSESSMENT:
+1. Type 2 Diabetes Mellitus - fair control (A1C 6.5%)
+2. Hypertension - well controlled
+3. Hyperlipidemia - borderline LDL
+
+PLAN:
+1. Continue Metformin 1000mg BID
+2. Continue Lisinopril 20mg daily
+3. Continue Aspirin 81mg daily
+4. Repeat labs in 3 months (A1C, lipid panel, CMP, microalbumin)
+5. Continue diet and exercise modifications
+6. Will consider statin if LDL remains elevated
+7. Ophthalmology referral for diabetic eye exam (overdue)
+
+Follow-up: 3 months with labs
+
+Dr. Michael Rodriguez, MD
+Internal Medicine
