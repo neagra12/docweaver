@@ -1,0 +1,25 @@
+# Ignore dependencies as much as possible
+.next
+out
+dist
+build
+
+# Testing
+coverage
+
+# Misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.DS_Store
+*.pem
+
+# Editor directories and files
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

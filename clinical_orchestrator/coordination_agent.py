@@ -133,6 +133,46 @@ Format as a formal medical referral letter."""
             traceback.print_exc()
             return f"Error generating referral letter: {str(e)}"
     
+    async def generate_doctor_handover_report(self, analysis_results: Dict[str, Any], 
+                                            soap_note: Dict[str, Any] = None,
+                                            patient_context: Dict[str, Any] = None) -> str:
+        """
+        Gemini API Call #19: Generate a high-level handover report for the next doctor
+        """
+        await self.rate_limiter.acquire()
+        Config.increment_api_calls()
+        
+        prompt = f"""Generate a detailed 1-page Clinical Handover Report for a receiving physician.
+        
+        Clinical Information:
+        Temporal Analysis: {json.dumps(analysis_results, indent=2)}
+        SOAP Note: {json.dumps(soap_note, indent=2) if soap_note else 'N/A'}
+        Patient Context: {json.dumps(patient_context, indent=2)}
+        
+        The report should be structured for a doctor to review IN PRIOR to a patient visit.
+        Include these sections:
+        1. CLINICAL SUMMARY: High-level overview of patient status
+        2. CRITICAL FINDINGS: Any urgent issues or lab trends discovered
+        3. ACTIVE MEDICAL PROBLEMS: Sorted by priority
+        4. CURRENT TREATMENT PLAN & RECENT CHANGES
+        5. PENDING ACTIONS & COORDINATION: Referrals, labs, or follow-ups needed
+        6. KEY QUESTIONS FOR THE NEXT VISIT
+        
+        Tone should be professional, concise, and clinically focused. Use medical terminology.
+        Format it as a clean, professional clinical report."""
+        
+        try:
+            print(f"   🔄 Calling Gemini API for doctor handover report...")
+            response = await asyncio.to_thread(
+                self.model.generate_content, prompt
+            )
+            print(f"   ✓ Gemini response received for handover report")
+            return response.text.strip()
+        except Exception as e:
+            print(f"❌ Error in generate_doctor_handover_report: {str(e)}")
+            traceback.print_exc()
+            return f"Error generating clinical handover report: {str(e)}"
+
     async def generate_patient_communication(self, visit_summary: Dict[str, Any], 
                                             patient_level: str = "general") -> str:
         """
@@ -214,6 +254,15 @@ Format as a clear, easy-to-read document suitable for patient portal."""
             patient_communication = await self.generate_patient_communication(visit_summary)
             print(f"   ✓ Patient communication generated (Total API calls: {Config.get_api_call_count()})")
         
+        # New Feature: Generate Doctor Handover Report
+        print("   🩺 Generating doctor handover report...")
+        handover_report = await self.generate_doctor_handover_report(
+            analysis_results, 
+            soap_note, 
+            patient_context
+        )
+        print(f"   ✓ Doctor handover report generated (Total API calls: {Config.get_api_call_count()})")
+        
         print(f"\n✅ Care coordination complete!\n")
         
         return {
@@ -222,6 +271,7 @@ Format as a clear, easy-to-read document suitable for patient portal."""
             "follow_ups": coordination_needs.get('follow_ups', []),
             "orders": coordination_needs.get('orders', []),
             "patient_communication": patient_communication,
+            "handover_report": handover_report,
             "actions_count": len(referral_letters) + len(coordination_needs.get('follow_ups', [])) + 
                            len(coordination_needs.get('orders', []))
         }

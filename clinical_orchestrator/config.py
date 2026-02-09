@@ -23,7 +23,7 @@ class Config:
         print("="*80)
         print("\nPlease set your API key using ONE of these methods:\n")
         print("METHOD 1: Create a .env file in your project root:")
-        print('   GEMINI_API_KEY=AIzaSyDAeM-y5isR_bYy5s6zBnkiG9mIRfE6nOI')
+        print('   GEMINI_API_KEY=AIzaSyA-i6EfxVUbsbvsAKMrmbCSJnn_Gx11JqI')
         print("\nMETHOD 2: Set environment variable:")
         print('   Windows: set GEMINI_API_KEY=AIzaSyDAeM-y5isR_bYy5s6zBnkiG9mIRfE6nOI')
         

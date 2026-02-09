@@ -6,7 +6,6 @@ from fastapi import FastAPI, UploadFile, File, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
-from pydantic import BaseModel
 import os
 import tempfile
 import asyncio
@@ -72,7 +71,7 @@ async def health_check():
     }
 
 
-@app.post("/api/complete-workflow")
+@app.post("/api/workflow/complete")
 async def complete_workflow(files: List[UploadFile] = File(...)):
     """
     Complete workflow: Process documents + generate documentation + coordinate care
@@ -120,11 +119,6 @@ async def complete_workflow(files: List[UploadFile] = File(...)):
         print(f"Actions: {results['summary']['actions_automated']}")
         print(f"{'='*80}\n")
         
-        # Flatten response for frontend
-        results["total_api_calls"] = results["summary"]["total_api_calls"]
-        results["processing_time_seconds"] = results["summary"]["processing_time_seconds"]
-        results["message"] = "Workflow completed successfully"
-        
         return JSONResponse(content=results)
     
     except Exception as e:
@@ -137,7 +131,7 @@ async def complete_workflow(files: List[UploadFile] = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/api/process-documents")
+@app.post("/api/workflow/documents")
 async def process_documents(files: List[UploadFile] = File(...)):
     """
     Feature 2: Multi-Source Data Fusion
@@ -178,42 +172,26 @@ async def process_documents(files: List[UploadFile] = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-class DocumentationRequest(BaseModel):
-    brief_note: str
-    patient_context: Optional[Dict[str, Any]] = None
-
-@app.post("/api/generate-documentation")
-async def generate_documentation(request: DocumentationRequest):
+@app.post("/api/documentation/generate")
+async def generate_documentation(brief_note: str = Form(...)):
     """
     Feature 8: Smart Documentation
     Generate complete SOAP note from brief note
     """
     try:
-        brief_note = request.brief_note
-        patient_context = request.patient_context
-        
         print(f"\n📝 Generating documentation")
         print(f"Brief note: {brief_note[:100]}...")
         
         if not brief_note or len(brief_note.strip()) == 0:
             raise HTTPException(status_code=400, detail="Brief note is required")
         
-        # Patient context (default if not provided)
-        if not patient_context:
-            patient_context = {
-                "name": "Patient",
-                "dob": "01/01/1970",
-                "mrn": "12345678",
-                "diagnoses": []
-            }
-            
-        # Check for prior analysis results to enhance documentation
-        # This connects Feature 2 (Data Fusion) -> Feature 8 (Documentation)
-        temporal_analysis = orchestrator.workflow_state.get("temporal_analysis")
-        if temporal_analysis:
-            print(f"   ✓ Incorporating prior temporal analysis into documentation context")
-            patient_context["recent_findings"] = temporal_analysis.get("priorities", {})
-            patient_context["timeline_events"] = temporal_analysis.get("new_events", {})
+        # Patient context (default)
+        patient_context = {
+            "name": "Patient",
+            "dob": "01/01/1970",
+            "mrn": "12345678",
+            "diagnoses": []
+        }
         
         # Generate documentation
         result = await orchestrator.generate_clinical_documentation(
@@ -223,33 +201,7 @@ async def generate_documentation(request: DocumentationRequest):
         
         print(f"✅ Documentation generated! API calls: {result['api_calls_used']}")
         
-        # Flatten response for frontend
-        documentation = result["documentation"]
-        
-        # Handle soap_note being a dict or string
-        soap_note_content = documentation.get("soap_note", "No SOAP note generated")
-        if isinstance(soap_note_content, dict):
-            soap_note_content = soap_note_content.get("full_note", str(soap_note_content))
-            
-        # Helper to extract code from complex object or string
-        def extract_code(code_item):
-            if isinstance(code_item, dict):
-                return code_item.get("code", str(code_item))
-            return str(code_item)
-            
-        icd10_raw = documentation.get("billing_codes", {}).get("icd10", [])
-        icd10_codes = [extract_code(c) for c in icd10_raw]
-
-        response = {
-            "status": "success",
-            "soap_note": soap_note_content,
-            "icd10_codes": icd10_codes,
-            "cpt_codes": [extract_code(documentation.get("billing_codes", {}).get("cpt", {}))],
-            "api_calls_used": result["api_calls_used"],
-            "message": "Documentation generated successfully"
-        }
-        
-        return JSONResponse(content=response)
+        return JSONResponse(content=result)
     
     except Exception as e:
         print(f"❌ Error in generate_documentation: {str(e)}")
@@ -257,8 +209,8 @@ async def generate_documentation(request: DocumentationRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/api/care-coordination")
-async def generate_coordination(patient_summary: str = Form(...), coordination_needs: Optional[str] = Form(None)):
+@app.post("/api/coordination/generate")
+async def generate_coordination():
     """
     Feature 9: Care Coordination
     Generate care coordination actions based on previous analysis
@@ -266,53 +218,25 @@ async def generate_coordination(patient_summary: str = Form(...), coordination_n
     try:
         print(f"\n🔗 Generating care coordination")
         
-        # In the original API logic, it used internal state. 
-        # But frontend sends patient_summary. 
-        # However, orchestrator might still rely on internal state if we don't pass summary to it.
-        # Let's assume orchestrator.coordinate_care() uses internal state, 
-        # but we should ideally update state if possible or check if we can pass the summary.
-        # Looking at orchestrator.py earlier (not visible now), it probably uses self.analysis_results.
+        # Check if we have prerequisite data
+        if not orchestrator.analysis_results:
+            raise HTTPException(
+                status_code=400,
+                detail="Please process documents first (Feature 2)"
+            )
         
-        # If frontend passes summary, maybe we can use it? 
-        # For now, let's stick to the existing orchestrator call but handle the FormData.
+        if not orchestrator.documentation_results:
+            raise HTTPException(
+                status_code=400,
+                detail="Please generate documentation first (Feature 8)"
+            )
         
-        # Prepare context from form data
-        context = {
-            "patient_summary": patient_summary,
-            "coordination_needs": coordination_needs,
-            # Add default context if needed, or rely on internal defaults
-            "name": "Patient",
-            "dob": "01/01/1980" 
-        }
-
-        # Check for prior steps to connect Feature 8 (Documentation) -> Feature 9 (Care Coordination)
-        prior_note = orchestrator.workflow_state.get("generated_documentation")
-        if prior_note:
-            print(f"   ✓ Using previously generated SOAP note for coordination")
-            # The orchestrator will use it automatically via internal state, 
-            # but we can also pass relevant parts in context if needed.
-            context["recent_plan"] = prior_note.get("soap_note", {}).get("plan", "")
-
         # Coordinate care
-        result = await orchestrator.coordinate_care(patient_context=context)
+        result = await orchestrator.coordinate_care()
         
         print(f"✅ Coordination complete! API calls: {result['api_calls_used']}")
         
-        # Flatten response for frontend
-        coordination = result["coordination"]
-        response = {
-            "status": "success",
-            # Use coordination["referrals"][0]["letter"] not "letter_content"
-            "referral_letter": coordination.get("referrals", [])[0].get("letter") if coordination.get("referrals") else "No referral needed",
-            # Use coordination["patient_communication"] not "patient_education"
-            "patient_education": coordination.get("patient_communication") or "No specific materials",
-            "follow_up_plan": coordination.get("follow_ups", [])[0].get("reason") if coordination.get("follow_ups") else "Routine follow-up",
-            "handover_report": coordination.get("handover_report", "No report generated"),
-            "api_calls_used": result["api_calls_used"],
-            "message": "Care coordination plan generated"
-        }
-        
-        return JSONResponse(content=response)
+        return JSONResponse(content=result)
     
     except Exception as e:
         print(f"❌ Error in generate_coordination: {str(e)}")
@@ -320,9 +244,46 @@ async def generate_coordination(patient_summary: str = Form(...), coordination_n
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.post("/api/demo/run")
+async def run_demo():
+    """
+    Run the complete demo workflow with Sarah Chen data
+    """
+    try:
+        print(f"\n🎬 Running demo workflow")
+        
+        demo_files = [
+            "demo_data/sarah_chen_lab_6months.txt",
+            "demo_data/sarah_chen_lab_recent.txt",
+            "demo_data/sarah_chen_er_discharge.txt",
+            "demo_data/sarah_chen_cardiology_consult.txt",
+            "demo_data/sarah_chen_last_visit.txt"
+        ]
+        
+        # Check if demo files exist
+        for file in demo_files:
+            if not os.path.exists(file):
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"Demo file not found: {file}. Please ensure demo_data folder exists."
+                )
+        
+        brief_note = "52F DM2 f/u, ER visit for CP ruled out, D/C ibuprofen due to kidney concerns, start atorvastatin 20mg for LDL 145, increase lisinopril to 40mg, A1C up to 6.8%, new microalbuminuria 35, refer ophthalmology"
+        
+        # Run complete workflow
+        results = await orchestrator.run_complete_workflow(demo_files, brief_note)
+        
+        print(f"✅ Demo complete! API calls: {results['summary']['total_api_calls']}")
+        
+        return JSONResponse(content=results)
+    
+    except Exception as e:
+        print(f"❌ Error in run_demo: {str(e)}")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.get("/api/demo-data")
+@app.get("/api/demo/files")
 async def get_demo_files():
     """
     Get list of available demo data files
@@ -346,8 +307,6 @@ async def get_demo_files():
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
 
 
 @app.get("/api/metrics")
@@ -406,5 +365,6 @@ if __name__ == "__main__":
         app,
         host="0.0.0.0",
         port=8000,
+        reload=True,
         log_level="info"
     )
